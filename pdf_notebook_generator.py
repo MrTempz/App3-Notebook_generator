@@ -87,15 +87,20 @@ def generate_notebook(notebook_df, output_file, overlay_style, front_page):
     
     page_counter = 1
     for index, row in notebook_df.iterrows():
-        add_pages(pdf, row['Topic'], row['Pages'], overlay_style, page_counter)
+        try:
+            topic_overlay = OverlayStyles[row['Style']]
+        except KeyError:
+            topic_overlay = overlay_style
+        add_pages(pdf, row['Topic'], row['Pages'], topic_overlay, page_counter)
         page_counter += row['Pages']
       
     pdf.output(output_file)
 
 if __name__ == '__main__':
 
-    csv_file = path.join(path.curdir, 'data', 'example_topics.csv')
+    csv_file = path.join(path.curdir, 'data', 'topics_template.csv')
+    df = pd.read_csv(csv_file, sep=';')
     output_file = 'output.pdf'
     front_page = ['Hello', 'Hi There!', "Let's create ourselves a notebook", 'testy testy testy test', 'one more for good meassure']
 
-    generate_notebook(csv_file, output_file, OverlayStyles.LINES_SMALL, front_page)
+    generate_notebook(notebook_df=df, output_file=output_file, overlay_style=OverlayStyles.LINES_SMALL, front_page=front_page)
