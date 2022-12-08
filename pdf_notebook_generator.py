@@ -79,19 +79,17 @@ def add_pages(pdf, topic, pages, overlay_style, page_counter):
 
         add_overlay(pdf, overlay_style, page_start=11)
 
-def generate_notebook(csv_file_path, output_file, overlay_style, front_page):
+def generate_notebook(notebook_df, output_file, overlay_style, front_page):
     pdf = FPDF(orientation='P', unit='mm', format='A4')
     pdf.set_auto_page_break(auto=False, margin=0)
 
     add_front_page(pdf, front_page)
     
-    df = pd.read_csv(csv_file_path)
-
     page_counter = 1
-    for index, row in df.iterrows():
+    for index, row in notebook_df.iterrows():
         add_pages(pdf, row['Topic'], row['Pages'], overlay_style, page_counter)
         page_counter += row['Pages']
-        
+      
     pdf.output(output_file)
 
 if __name__ == '__main__':
