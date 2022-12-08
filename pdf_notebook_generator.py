@@ -101,6 +101,8 @@ if __name__ == '__main__':
     csv_file = path.join(path.curdir, 'data', 'topics_template.csv')
     df = pd.read_csv(csv_file, sep=';')
     output_file = 'output.pdf'
-    front_page = ['Hello', 'Hi There!', "Let's create ourselves a notebook", 'testy testy testy test', 'one more for good meassure']
+    front_page = ['Hello', 'Hi There!', "Let's create ourselves a notebook", 
+        'testy testy testy test', 'one more for good meassure']
 
-    generate_notebook(notebook_df=df, output_file=output_file, overlay_style=OverlayStyles.LINES_SMALL, front_page=front_page)
+    generate_notebook(notebook_df=df, output_file=output_file, 
+         overlay_style=OverlayStyles.LINES_SMALL, front_page=front_page)
